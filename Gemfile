@@ -8,6 +8,15 @@ gem 'rails', '3.2.13'
 group :development, :test do
   gem 'sqlite3'
 end
+
+group :development do
+  gem 'rspec-rails', '2.8'
+end
+
+group :test do
+  gem 'rspec', '2.8'
+end
+
 group :production do
   gem 'pg'
 end
