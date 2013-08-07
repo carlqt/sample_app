@@ -6,6 +6,7 @@ gem 'webrat'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'annotate', '2.5.0'
 
 group :development, :test do
   gem 'sqlite3'
