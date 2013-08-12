@@ -8,6 +8,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  encrypted_password :string(255)
+#  salt               :string(255)
 #
 
 require 'spec_helper'
@@ -16,7 +17,7 @@ describe User do
   # for more information go to youtube Rails tutorial chapter 36, 14:10 time
   before(:each) do
     @attr = { :name => "user", 
-              :email => "user@exaMple.com",
+              :email => "user@example.com",
               :password => "foobar",
               :password_confirmation => "foobar"}
     #@attr = { :name => "user"}
@@ -115,9 +116,50 @@ describe User do
       @user = User.create!(@attr)
     end
     
-    it "should have an encrypted passwor attribute" do
+    it "should have an encrypted password attribute" do
       @user.should respond_to(:encrypted_password)
     end
+    
+    it "should set the encrypted password attribute" do
+      @user.encrypted_password.should_not be_blank
+    end
+    
+    describe "has password? method" do
+      it "should exist" do
+        @user.should respond_to(:has_password?)
+      end
+      
+      it "should return true if the passwords match" do
+        @user.has_password?(@attr[:password]).should be_true
+      end
+      
+      it "should return false if the passwords don't match" do
+        @user.has_password?('invalid').should be_false
+      end
+      
+      it "should have a salt" do
+        @user.should respond_to(:salt)
+      end
+    end
+    
+    describe "authenticate method" do
+      it "should exist" do
+        User.should respond_to(:authenticate)
+      end
+      
+      it "should return nil on email/password mismatch" do
+        User.authenticate(@attr[:email], "wrong password").should be_nil
+      end
+      
+      it "should return nil for an email address with no user" do
+        User.authenticate("bur@foo.com", @attr[:password]).should be_nil
+      end
+      
+      it "should return the user on email/password match" do
+        User.authenticate(@attr[:email], @attr[:password]).should == @user
+      end
+    end  
+          
   end
   
   
