@@ -5,6 +5,10 @@ gem 'rails', '3.2.13'
 gem 'webrat'
 
 gem 'gravatar_image_tag', '0.1.0'
+
+#Twitter's Bootstrap, converted to Sass and ready to drop into Rails or Compass
+gem "bootstrap-sass", "~> 2.3.2.1"
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'annotate', '2.5.0'

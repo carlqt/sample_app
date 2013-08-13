@@ -10,8 +10,15 @@ class UsersController < ApplicationController
   end
   
   def create
-    @title = "Sign up"
-    @user = User.new
-    render 'new'
+    #raise params[:user].inspect
+    @user = User.new(params[:user])
+        
+    if @user.save
+      #handle the something
+    else
+      @title = "Sign up"
+      render 'new'
+    end
+    
   end
 end
